@@ -5,10 +5,17 @@ Este es el desarrollo de la prueba Técnica. Está en proceso de creación de la
 
 `http://localhost:3000/wires/api-doc`
 
-En el proyecto se usó Redis, para almacenar la sección del usuario.
+En el proyecto se usó Redis, para almacenar la sesión del usuario.
 
-También cuenta con un RefreshToken, para validar si el Access Token aún es válido, El AccessToken tiene un tiempo de expiracion de 1 dia, despues al interceptar que ya este token no es valido se solicita un nuevo token en el enpoint: 
-``` /wires/auth/refresh``` se generaria un nuevo accessToken. Esto con el fin de que el usuario no tenga que estar iniciando seccion a menudo y cambiar periodicamente el token de accesso. EL refreshToken tiene un tiempo de expiración de 7 dias, despues de esto el usuario tiene que iniciar seccion de nuevo.
+También cuenta con un RefreshToken, para validar si el Access Token aún es válido, El AccessToken tiene un tiempo de expiración de 1 día, después al interceptar que ya este token no es válido se solicita un nuevo token en el enpoint: 
+``` /wires/auth/refresh``` se generaría un nuevo accessToken. Esto con el fin de que el usuario no tenga que estar iniciando sesión a menudo y cambiar periódicamente el token de acceso. El refreshToken tiene un tiempo de expiración de 7 días, después de esto el usuario tiene que iniciar sesión de nuevo.
+
+
+Como funciona la API:
+
+- Es necesario iniciar sesión para interactuar, de lo contrario la API no deja
+- Después de haber iniciado sesión, se puede ver todos los mensajes, sus propios mensajes, reaccionar a los mensajes, comentar los mensajes (No es posible reaccionar ni comentar sus propios mensajes)
+- Para crear un mensaje es necesario enviar el token de autorización Bearer
 
 ## Api Reference
 
