@@ -1,3 +1,4 @@
+
 # Prueba Técnica
 
 Este es el desarrollo de la prueba Técnica. Está en proceso de creación de la documentación en swagger, para verla, una vez seguido los pasos de instalación y el proyecto este online, ingrese a la siguiente url:
@@ -6,7 +7,12 @@ Este es el desarrollo de la prueba Técnica. Está en proceso de creación de la
 
 En el proyecto se usó Redis, para almacenar la sección del usuario.
 
-También cuenta con un RefreshToken, para validar si el Access Token aún es válido.
+También cuenta con un RefreshToken, para validar si el Access Token aún es válido, El AccessToken tiene un tiempo de expiracion de 1 dia, despues al interceptar que ya este token no es valido se solicita un nuevo token en el enpoint: 
+``` /wires/auth/refresh``` se generaria un nuevo accessToken. Esto con el fin de que el usuario no tenga que estar iniciando seccion a menudo y cambiar periodicamente el token de accesso. EL refreshToken tiene un tiempo de expiración de 7 dias, despues de esto el usuario tiene que iniciar seccion de nuevo.
+
+## Api Reference
+
+https://documenter.getpostman.com/view/7076088/2s93Y2R1xK
 
 ## Stack Usado
 
@@ -77,3 +83,5 @@ npm run db:push
 ```
 npm run dev
 ```
+
+
