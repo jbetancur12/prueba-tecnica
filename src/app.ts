@@ -30,12 +30,12 @@ AppDataSource.initialize()
     );
 
     // ROUTES
-    app.use('/api/auth', authRouter);
-    app.use('/api/users', userRouter);
-    app.use('/api/messages', messageRouter);
+    app.use('/wires/auth', authRouter);
+    app.use('/wires/users', userRouter);
+    app.use('/wires/messages', messageRouter);
 
     // HEALTH CHECKER
-    app.get('/api/healthChecker', async (_, res: Response) => {
+    app.get('/wires/healthChecker', async (_, res: Response) => {
       const message = await redisClient.get('try');
 
       res.status(200).json({

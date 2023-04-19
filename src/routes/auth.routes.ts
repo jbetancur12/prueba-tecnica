@@ -12,16 +12,12 @@ import { createUserSchema, loginUserSchema } from '../schemas/user.schema';
 
 const router = express.Router();
 
-// Register user
-router.post('/register', validate(createUserSchema), registerUserHandler);
+router.post('/signup', validate(createUserSchema), registerUserHandler);
 
-// Login user
-router.post('/login', validate(loginUserSchema), loginUserHandler);
+router.post('/signin', validate(loginUserSchema), loginUserHandler);
 
-// Logout user
 router.get('/logout', deserializeUser, requireUser, logoutHandler);
 
-// Refresh access token
 router.get('/refresh', refreshAccessTokenHandler);
 
 export default router;
