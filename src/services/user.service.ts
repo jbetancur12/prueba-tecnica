@@ -24,12 +24,10 @@ export const findUser = async (query: Object) => {
   return await userRepository.findOneBy(query);
 };
 export const signTokens = async (user: User) => {
-  // 1. Create Session
+
   redisClient.set(user.id, JSON.stringify(user), {
     EX: config.get<number>('redisCacheExpiresIn') * 60,
   });
-
-  // 2. Create Access and Refresh tokens
 
   
   const access_token = signJwt({ sub: user.id }, 'accessTokenPrivateKey', {
