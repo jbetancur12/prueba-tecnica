@@ -25,15 +25,15 @@ export const findUser = async (query: Object) => {
 }
 export const signTokens = async (user: User) => {
   redisClient.set(user.id, JSON.stringify(user), {
-    EX: config.get<number>('redisCacheExpiresIn') * 60
+    EX: config.get<number>('redisCacheExpiresIn') * 24 * 60 * 60
   })
 
   const access_token = signJwt({ sub: user.id }, 'accessTokenPrivateKey', {
-    expiresIn: `${config.get<number>('accessTokenExpiresIn')}m`
+    expiresIn: `${config.get<number>('accessTokenExpiresIn')}h`
   })
 
   const refresh_token = signJwt({ sub: user.id }, 'refreshTokenPrivateKey', {
-    expiresIn: `${config.get<number>('refreshTokenExpiresIn')}m`
+    expiresIn: `${config.get<number>('refreshTokenExpiresIn')}d`
   })
 
   return { access_token, refresh_token }

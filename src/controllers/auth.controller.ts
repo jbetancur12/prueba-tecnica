@@ -22,17 +22,18 @@ if (process.env.NODE_ENV === 'production') cookiesOptions.secure = true
 const accessTokenCookieOptions: CookieOptions = {
   ...cookiesOptions,
   expires: new Date(
-    Date.now() + config.get<number>('accessTokenExpiresIn') * 60 * 1000
+    Date.now() + config.get<number>('accessTokenExpiresIn') * 60 * 60 * 1000
   ),
-  maxAge: config.get<number>('accessTokenExpiresIn') * 60 * 1000
+  maxAge: config.get<number>('accessTokenExpiresIn') * 60 * 60 * 1000
 }
 
 const refreshTokenCookieOptions: CookieOptions = {
   ...cookiesOptions,
   expires: new Date(
-    Date.now() + config.get<number>('refreshTokenExpiresIn') * 60 * 1000
+    Date.now() +
+      config.get<number>('refreshTokenExpiresIn') * 24 * 60 * 60 * 1000
   ),
-  maxAge: config.get<number>('refreshTokenExpiresIn') * 60 * 1000
+  maxAge: config.get<number>('refreshTokenExpiresIn') * 24 * 60 * 60 * 1000
 }
 
 export const registerUserHandler = async (
@@ -86,6 +87,8 @@ export const loginUserHandler = async (
 
     res.status(200).json({
       access_token,
+      refresh_token,
+      expiresIn: '1d',
       message: 'Successfully logged in',
       status: true
     })
@@ -134,7 +137,7 @@ export const refreshAccessTokenHandler = async (
 
     // Sign new access token
     const access_token = signJwt({ sub: user.id }, 'accessTokenPrivateKey', {
-      expiresIn: `${config.get<number>('accessTokenExpiresIn')}m`
+      expiresIn: `${config.get<number>('accessTokenExpiresIn')}h`
     })
 
     // 4. Add Cookies
