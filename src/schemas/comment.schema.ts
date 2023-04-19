@@ -1,21 +1,18 @@
-import { object, string, TypeOf } from 'zod';
+import { object, string, TypeOf } from 'zod'
 
 const params = {
-    params: object({
-      messageId: string(),
-    }),
-  };
+  params: object({
+    messageId: string()
+  })
+}
 
 export const createCommentSchema = object({
   ...params,
   body: object({
     content: string({
-      required_error: 'Content is required',
+      required_error: 'Content is required'
     })
-  }),
-});
+  })
+})
 
-
-export type CreateCommentInput = TypeOf<typeof createCommentSchema>;
-
-
+export type CreateCommentInput = TypeOf<typeof createCommentSchema>

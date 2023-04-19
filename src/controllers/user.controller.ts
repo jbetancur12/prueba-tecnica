@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express'
 
 export const getMeHandler = async (
   req: Request,
@@ -6,16 +6,15 @@ export const getMeHandler = async (
   next: NextFunction
 ) => {
   try {
-    const user = res.locals.user;
+    const user = res.locals.user
 
     res.status(200).status(200).json({
       status: 'success',
       data: {
-        user,
-      },
-    });
+        user
+      }
+    })
   } catch (err: any) {
-    next(err);
+    next(err)
   }
-};
-
+}

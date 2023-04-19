@@ -1,5 +1,3 @@
-
-
 # Prueba Técnica
 
 Este es el desarrollo de la prueba Técnica. Está en proceso de creación de la documentación en swagger, para verla, una vez seguido los pasos de instalación y el proyecto este online, ingrese a la siguiente url:
@@ -11,6 +9,7 @@ En el proyecto se usó Redis, para almacenar la sección del usuario.
 También cuenta con un RefreshToken, para validar si el Access Token aún es válido.
 
 ## Stack Usado
+
 - ExpressJS
 - TypeScript
 - Docker
@@ -19,28 +18,31 @@ También cuenta con un RefreshToken, para validar si el Access Token aún es vá
 - Redis
 
 ## Prerequisitos
+
 Es necesario tener instalado:
 
 - Node
 - Docker
 - Docker-compose
 
-
 ## Instalación
 
 - Clonar el repositorio
+
 ```bash
   git clone https://github.com/jbetancur12/prueba-tecnica
   cd prueba-tecnica
 ```
+
 - Instalar las dependencias
 
 ```bash
-  npm install 
+  npm install
 ```
+
 - Llenar el archivo de variables de entorno con los datos requeridos asi:
 
-***Nota: Es importante llenar los datos de la base de datos en este archivo, ya que al ejecutar el contenedor de Docker la imagen tomara estos datos para crear la base de datos***
+**_Nota: Es importante llenar los datos de la base de datos en este archivo, ya que al ejecutar el contenedor de Docker la imagen tomara estos datos para crear la base de datos_**
 
 ```
 PORT=3000
@@ -64,12 +66,14 @@ JWT_REFRESH_TOKEN_PUBLIC_KEY=jwt_refresh_token_public_key
 `docker-compose up -d`
 
 - Una vez esta iniciada la imagen, correr las migraciones.
- ```bash
- npm run migrate
- npm run db:push
- ```
+
+```bash
+npm run migrate
+npm run db:push
+```
 
 - Correr el proyecto
+
 ```
 npm run dev
 ```

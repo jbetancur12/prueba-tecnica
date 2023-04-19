@@ -21,5 +21,5 @@ services:
       - redisDB:/data
 volumes:
   db-data:
-      driver: local
+    driver: local
   redisDB:

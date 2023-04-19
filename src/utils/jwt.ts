@@ -1,5 +1,5 @@
-import jwt, { SignOptions } from 'jsonwebtoken';
-import config from 'config';
+import jwt, { SignOptions } from 'jsonwebtoken'
+import config from 'config'
 
 export const signJwt = (
   payload: Object,
@@ -8,12 +8,11 @@ export const signJwt = (
 ) => {
   const privateKey = config.get<string>(keyName)
 
-    
   return jwt.sign(payload, privateKey, {
-    ...(options && options),
+    ...(options && options)
     // algorithm: 'RS256',
-  });
-};
+  })
+}
 
 export const verifyJwt = <T>(
   token: string,
@@ -21,11 +20,10 @@ export const verifyJwt = <T>(
 ): T | null => {
   try {
     const publicKey = config.get<string>(keyName)
-    const decoded = jwt.verify(token, publicKey) as T;
+    const decoded = jwt.verify(token, publicKey) as T
 
-
-    return decoded;
+    return decoded
   } catch (error) {
-    return null;
+    return null
   }
-};
+}
