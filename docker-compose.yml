@@ -1,6 +1,6 @@
 version: '3'
 services:
-  db:
+  postgres:
     image: postgres:latest
     environment:
       POSTGRES_USER: myuser
@@ -12,6 +12,14 @@ services:
       - db-data:/var/lib/postgresql/data
     env_file:
       - ./.env
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - redisDB:/data
 volumes:
   db-data:
       driver: local
+  redisDB:

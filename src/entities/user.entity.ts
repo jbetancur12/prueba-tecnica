@@ -2,6 +2,7 @@ import { Entity, Column, Index, BeforeInsert, OneToMany } from 'typeorm';
 import bcrypt from 'bcryptjs';
 import Model from './model.entity';
 import { Message } from './message.entity';
+import { Comment } from './comment.entity';
 
 @Entity()
 export class User extends Model {
@@ -23,6 +24,9 @@ export class User extends Model {
 
     @OneToMany(() => Message, (message) => message.user)
     messages: Message[];
+
+    @OneToMany(() => Comment, (comment) => comment.user)
+    comments: Comment[]
 
     @BeforeInsert()
     async hashPassword() {

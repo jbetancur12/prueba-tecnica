@@ -1,6 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import Model from './model.entity';
 import { User } from './user.entity';
+import { Comment } from './comment.entity';
 
 @Entity()
 export class Message extends Model {
@@ -15,4 +16,7 @@ export class Message extends Model {
   @ManyToOne(() => User, (user) => user.messages)
   @JoinColumn()
   user!: User;
+
+  @OneToMany(() => Comment, (comment) => comment.message )
+  comments: Comment[];
 }
