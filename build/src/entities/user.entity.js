@@ -27,6 +27,7 @@ const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const model_entity_1 = __importDefault(require("./model.entity"));
 const message_entity_1 = require("./message.entity");
 const comment_entity_1 = require("./comment.entity");
+const reaction_entity_1 = require("./reaction.entity");
 let User = class User extends model_entity_1.default {
     hashPassword() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -69,6 +70,10 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => comment_entity_1.Comment, (comment) => comment.user),
     __metadata("design:type", Array)
 ], User.prototype, "comments", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => reaction_entity_1.Reaction, (reaction) => reaction.user),
+    __metadata("design:type", Array)
+], User.prototype, "reactions", void 0);
 __decorate([
     (0, typeorm_1.BeforeInsert)(),
     __metadata("design:type", Function),

@@ -2,6 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import Model from './model.entity';
 import { User } from './user.entity';
 import { Comment } from './comment.entity';
+import { Reaction } from './reaction.entity';
 
 @Entity()
 export class Message extends Model {
@@ -19,4 +20,7 @@ export class Message extends Model {
 
   @OneToMany(() => Comment, (comment) => comment.message )
   comments: Comment[];
+
+  @OneToMany(() => Reaction, (reaction) => reaction.message )
+  reactions: Reaction[];
 }

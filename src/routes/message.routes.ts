@@ -18,6 +18,8 @@ import {
 } from '../schemas/message.schema';
 import { createCommentSchema } from '../schemas/comment.schema';
 import { createCommentHandler } from '../controllers/comment.controller';
+import { createReactionSchema } from '../schemas/reaction.schema';
+import { createReactionHandler } from '../controllers/reaction.controller';
 
 const router = express.Router();
 
@@ -33,6 +35,10 @@ router
 router
     .route('/comment/:messageId')
     .post(validate(createCommentSchema), createCommentHandler)
+
+router
+    .route('/reaction/:messageId')
+    .post(validate(createReactionSchema), createReactionHandler)
 
 router
     .route('/:messageId')

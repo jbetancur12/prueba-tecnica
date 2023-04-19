@@ -1,18 +1,18 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import Model from './model.entity';
-import { Message } from './message.entity';
 import { User } from './user.entity';
+import { Message } from './message.entity';
 
 @Entity()
-export class Comment extends Model {
+export class Reaction extends Model {
   @Column()
-  content: string;
+  reaction: string;
 
-  @ManyToOne(() => Message, (message) => message.comments)
+  @ManyToOne(() => Message, (message) => message.reactions)
   @JoinColumn()
   message!: Message;
 
-  @ManyToOne(() => User, (user) => user.comments)
+  @ManyToOne(() => User, (user) => user.reactions)
   @JoinColumn()
   user!: User;
 

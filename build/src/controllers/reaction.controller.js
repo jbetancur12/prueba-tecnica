@@ -12,23 +12,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createCommentHandler = void 0;
-const comment_service_1 = require("../services/comment.service");
+exports.createReactionHandler = void 0;
+const reaction_service_1 = require("../services/reaction.service");
 const user_service_1 = require("../services/user.service");
 const message_service_1 = require("../services/message.service");
 const appError_1 = __importDefault(require("../utils/appError"));
-const createCommentHandler = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const createReactionHandler = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield (0, user_service_1.findUserById)(res.locals.user.id);
         const message = yield (0, message_service_1.findMessages)({ id: req.params.messageId }, {}, { user: true });
         if (message[0].user.id === (user === null || user === void 0 ? void 0 : user.id)) {
-            return next(new appError_1.default(404, 'You cannot comment your own message'));
+            return next(new appError_1.default(404, 'You cannot react to your own message'));
         }
-        const comment = yield (0, comment_service_1.createComment)(req.body, user, message[0]);
+        const reaction = yield (0, reaction_service_1.createReaction)(req.body, user, message[0]);
         res.status(201).json({
             status: 'success',
             data: {
-                comment,
+                reaction,
             },
         });
     }
@@ -36,4 +36,4 @@ const createCommentHandler = (req, res, next) => __awaiter(void 0, void 0, void 
         next(err);
     }
 });
-exports.createCommentHandler = createCommentHandler;
+exports.createReactionHandler = createReactionHandler;

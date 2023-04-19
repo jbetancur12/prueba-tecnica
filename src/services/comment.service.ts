@@ -8,6 +8,10 @@ import { Message } from '../entities/message.entity';
   export const createComment = async (input: Partial<Comment>, user: User, message: Message) => {
     return await commentRepository.save(commentRepository.create({ ...input, user, message }));
   };
+
+  export const findCommentById = async (commentId: string) => {
+    return await commentRepository.findOneBy({ id: commentId });
+  };
   
 
   

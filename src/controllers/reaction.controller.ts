@@ -1,14 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
 import {
-  CreateCommentInput,
-} from '../schemas/comment.schema';
-import { createComment } from '../services/comment.service';
+  CreateReactionInput,
+} from '../schemas/reaction.schema';
+import { createReaction } from '../services/reaction.service';
 import { findUserById } from '../services/user.service';
-import { findMessages } from '../services/message.service';
+import {  findMessages } from '../services/message.service';
 import AppError from '../utils/appError';
 
-export const createCommentHandler = async (
-  req: Request<CreateCommentInput['params'], {}, CreateCommentInput['body']>,
+export const createReactionHandler = async (
+  req: Request<CreateReactionInput['params'], {}, CreateReactionInput['body']>,
   res: Response,
   next: NextFunction
 ) => {
@@ -17,16 +17,16 @@ export const createCommentHandler = async (
     const message = await findMessages({id: req.params.messageId},{},{user: true})
 
     if(message[0].user.id === user?.id){
-        return next(new AppError(404, 'You cannot comment your own message'));
+        return next(new AppError(404, 'You cannot react to your own message'));
     }
 
 
-    const comment = await createComment(req.body, user!, message[0]!);    
+    const reaction = await createReaction(req.body, user!, message[0]!);    
 
     res.status(201).json({
       status: 'success',
       data: {
-        comment,
+        reaction,
       },
     });
   } catch (err: any) {

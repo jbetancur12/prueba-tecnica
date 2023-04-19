@@ -9,15 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findCommentById = exports.createComment = void 0;
-const comment_entity_1 = require("../entities/comment.entity");
+exports.createReaction = void 0;
+const reaction_entity_1 = require("../entities/reaction.entity");
 const data_source_1 = require("../utils/data-source");
-const commentRepository = data_source_1.AppDataSource.getRepository(comment_entity_1.Comment);
-const createComment = (input, user, message) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield commentRepository.save(commentRepository.create(Object.assign(Object.assign({}, input), { user, message })));
+const reactionRepository = data_source_1.AppDataSource.getRepository(reaction_entity_1.Reaction);
+const createReaction = (input, user, message) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield reactionRepository.save(reactionRepository.create(Object.assign(Object.assign({}, input), { user, message })));
 });
-exports.createComment = createComment;
-const findCommentById = (commentId) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield commentRepository.findOneBy({ id: commentId });
-});
-exports.findCommentById = findCommentById;
+exports.createReaction = createReaction;

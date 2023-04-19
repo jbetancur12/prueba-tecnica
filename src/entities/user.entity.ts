@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import Model from './model.entity';
 import { Message } from './message.entity';
 import { Comment } from './comment.entity';
+import { Reaction } from './reaction.entity';
 
 @Entity()
 export class User extends Model {
@@ -27,6 +28,9 @@ export class User extends Model {
 
     @OneToMany(() => Comment, (comment) => comment.user)
     comments: Comment[]
+
+    @OneToMany(() => Reaction, (reaction) => reaction.user)
+    reactions: Reaction[]
 
     @BeforeInsert()
     async hashPassword() {

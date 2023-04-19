@@ -19,9 +19,9 @@ __decorate([
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
-], Model.prototype, "created_at", void 0);
+], Model.prototype, "createdAt", void 0);
 __decorate([
     (0, typeorm_1.UpdateDateColumn)(),
     __metadata("design:type", Date)
-], Model.prototype, "updated_at", void 0);
+], Model.prototype, "updatedAt", void 0);
 exports.default = Model;

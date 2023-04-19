@@ -12,38 +12,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Message = void 0;
+exports.Reaction = void 0;
 const typeorm_1 = require("typeorm");
 const model_entity_1 = __importDefault(require("./model.entity"));
 const user_entity_1 = require("./user.entity");
-const comment_entity_1 = require("./comment.entity");
-const reaction_entity_1 = require("./reaction.entity");
-let Message = class Message extends model_entity_1.default {
+const message_entity_1 = require("./message.entity");
+let Reaction = class Reaction extends model_entity_1.default {
 };
-__decorate([
-    (0, typeorm_1.Column)({
-        unique: true,
-    }),
-    __metadata("design:type", String)
-], Message.prototype, "title", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Message.prototype, "content", void 0);
+], Reaction.prototype, "reaction", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.messages),
+    (0, typeorm_1.ManyToOne)(() => message_entity_1.Message, (message) => message.reactions),
+    (0, typeorm_1.JoinColumn)(),
+    __metadata("design:type", message_entity_1.Message)
+], Reaction.prototype, "message", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.reactions),
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", user_entity_1.User)
-], Message.prototype, "user", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => comment_entity_1.Comment, (comment) => comment.message),
-    __metadata("design:type", Array)
-], Message.prototype, "comments", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => reaction_entity_1.Reaction, (reaction) => reaction.message),
-    __metadata("design:type", Array)
-], Message.prototype, "reactions", void 0);
-Message = __decorate([
+], Reaction.prototype, "user", void 0);
+Reaction = __decorate([
     (0, typeorm_1.Entity)()
-], Message);
-exports.Message = Message;
+], Reaction);
+exports.Reaction = Reaction;

@@ -74,14 +74,8 @@ const getOwnMessagesHandler = (req, res, next) => __awaiter(void 0, void 0, void
 exports.getOwnMessagesHandler = getOwnMessagesHandler;
 const getMessagesHandler = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const messages = yield (0, message_service_1.findMessages)({}, {}, {});
-        res.status(200).json({
-            status: 'success',
-            results: messages.length,
-            data: {
-                messages,
-            },
-        });
+        const messages = yield (0, message_service_1.findMessages)({}, { id: true, title: true, content: true, "user": { id: true }, comments: { content: true }, reactions: { reaction: true }, createdAt: true }, { comments: true, user: true, reactions: true });
+        res.status(200).json(messages);
     }
     catch (err) {
         next(err);
