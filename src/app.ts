@@ -11,28 +11,45 @@ import userRouter from './routes/user.routes';
 import messageRouter from './routes/message.routes';
 import validateEnv from './utils/validateEnv';
 import redisClient from './utils/connectRedis';
+import swaggerUI from 'swagger-ui-express'
+import swaggerJsDoc from 'swagger-jsdoc'
+import path from 'path'
+
+const swaggerSpec = {
+    definition:{
+        openapi: "3.0.0",
+        info: {
+            title: "Prueba Tecnica",
+            version: "1.0.0"
+        },
+        servers:[{
+            url:"http://localhost:3000"
+        }],
+    },
+    apis:[`${path.join(__dirname, "./routes/*.routes.ts")}`]
+}
 
 AppDataSource.initialize()
   .then(async () => {
     validateEnv();
     const app = express();
-    app.use(express.json({ limit: '10kb' }));
+    app.use(express.json());
 
     if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
     app.use(cookieParser());
 
     app.use(
-      cors({
-        origin: config.get<string>('origin'),
-        credentials: true,
-      })
+      cors()
     );
 
+    
     // ROUTES
     app.use('/wires/auth', authRouter);
     app.use('/wires/users', userRouter);
     app.use('/wires/messages', messageRouter);
+    
+    app.use('/wires/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec)))
 
     // HEALTH CHECKER
     app.get('/wires/healthChecker', async (_, res: Response) => {
