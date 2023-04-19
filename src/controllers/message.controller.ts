@@ -42,18 +42,15 @@ export const getMessageHandler = async (
     next: NextFunction
 ) => {
     try {
-        const message = await getMessage(req.params.messageId);
+        //const message = await getMessage(req.params.messageId);
 
-        if (!message) {
+        const message = await findMessages({id: req.params.messageId},{ id: true, title: true, content: true, "user": { id: true }, comments: { content: true }, reactions: { reaction: true }, createdAt: true }, { comments: true, user: true, reactions: true })
+
+        if (message.length === 0) {
             return next(new AppError(404, 'Message with that ID not found'));
         }
 
-        res.status(200).json({
-            status: 'success',
-            data: {
-                message,
-            },
-        });
+        res.status(200).json(message);
     } catch (err: any) {
         next(err);
     }
@@ -70,7 +67,7 @@ export const getOwnMessagesHandler = async (
 
 
 
-        const messages = await findMessages({ user: { id: user?.id } }, {}, { user: true });
+        const messages = await findMessages({ user: { id: user?.id } }, { id: true, title: true, content: true, "user": { id: true }, comments: { content: true }, reactions: { reaction: true }, createdAt: true }, { comments: true, user: true, reactions: true });
 
 
 

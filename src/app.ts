@@ -9,31 +9,19 @@ import AppError from './utils/appError';
 import authRouter from './routes/auth.routes';
 import userRouter from './routes/user.routes';
 import messageRouter from './routes/message.routes';
-import commentRouter from './routes/comment.routes';
 import validateEnv from './utils/validateEnv';
 import redisClient from './utils/connectRedis';
 
 AppDataSource.initialize()
   .then(async () => {
-    // VALIDATE ENV
     validateEnv();
-
     const app = express();
-
-    // TEMPLATE ENGINE
-
-    // MIDDLEWARE
-
-    // 1. Body parser
     app.use(express.json({ limit: '10kb' }));
 
-    // 2. Logger
     if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
-    // 3. Cookie Parser
     app.use(cookieParser());
 
-    // 4. Cors
     app.use(
       cors({
         origin: config.get<string>('origin'),

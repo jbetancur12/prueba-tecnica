@@ -50,12 +50,7 @@ export const registerUserHandler = async (
       password,
     });
 
-    res.status(201).json({
-      status: 'success',
-      data: {
-        user,
-      },
-    });
+    res.status(201).json(user);
   } catch (err: any) {
     if (err.code === '23505') {
       return res.status(409).json({
@@ -85,8 +80,6 @@ export const loginUserHandler = async (
 
     const { access_token, refresh_token } = await signTokens(user);
 
-    console.log("==>", refresh_token)
-
     res.cookie('access_token', access_token, accessTokenCookieOptions);
     res.cookie('refresh_token', refresh_token, refreshTokenCookieOptions);
     res.cookie('logged_in', true, {
@@ -96,8 +89,9 @@ export const loginUserHandler = async (
 
  
     res.status(200).json({
-      status: 'success',
       access_token,
+      message: "Successfully logged in", 
+      status: true
     });
   } catch (err: any) {
     next(err);
